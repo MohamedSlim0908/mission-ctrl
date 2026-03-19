@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neon-green: #00ff88;
+  --neon-blue: #00d4ff;
+  --neon-purple: #bd00ff;
+  --space-900: #0a0a12;
+  --space-800: #0f0f1a;
+  --space-700: #141422;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0a0a12;
+  color: #e2e8f0;
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a12;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 136, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 136, 0.5);
+}
+
+/* Neon text effects */
+.neon-text-green {
+  color: var(--neon-green);
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+.neon-text-blue {
+  color: var(--neon-blue);
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+/* Status dot pulse */
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+.status-dot-running {
+  animation: statusPulse 1.5s ease-in-out infinite;
+}
+
+/* Grid background */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Timeline bar */
+.timeline-bar {
+  height: 24px;
+  border-radius: 4px;
+  position: absolute;
+  min-width: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.timeline-bar:hover {
+  filter: brightness(1.3);
+  z-index: 10;
+}
+
+/* Agent card */
+.agent-card {
+  transition: all 0.2s ease;
+}
+.agent-card:hover {
+  transform: translateY(-1px);
+}
+
+/* Mono logs */
+.log-content {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Scanline effect */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* Selection */
+::selection {
+  background: rgba(0, 255, 136, 0.3);
+  color: #fff;
+}
+
+/* Input focus */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: rgba(0, 255, 136, 0.5) !important;
+  box-shadow: 0 0 0 1px rgba(0, 255, 136, 0.2);
+}
+
+/* Button neon effect */
+.btn-neon {
+  background: transparent;
+  border: 1px solid rgba(0, 255, 136, 0.4);
+  color: var(--neon-green);
+  transition: all 0.2s;
+}
+.btn-neon:hover {
+  background: rgba(0, 255, 136, 0.1);
+  border-color: var(--neon-green);
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+.btn-neon-blue {
+  background: transparent;
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  color: var(--neon-blue);
+  transition: all 0.2s;
+}
+.btn-neon-blue:hover {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+/* Glass card */
+.glass {
+  background: rgba(14, 14, 26, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
