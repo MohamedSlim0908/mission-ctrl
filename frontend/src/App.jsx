@@ -10,7 +10,8 @@ import { SpawnPanel } from './components/SpawnPanel.jsx'
 import { StatsPanel } from './components/StatsPanel.jsx'
 import { TimelineView } from './components/TimelineView.jsx'
 import { FilterBar } from './components/FilterBar.jsx'
-import { LayoutDashboard, Clock, BarChart3, Rocket, Wifi, WifiOff, Bell, BellOff, Zap } from 'lucide-react'
+import { QuickLaunch } from './components/QuickLaunch.jsx'
+import { LayoutDashboard, Clock, BarChart3, Rocket, Wifi, WifiOff, Bell, BellOff, Zap, PlayCircle } from 'lucide-react'
 
 const WS_URL = `ws://localhost:3334`
 
@@ -19,6 +20,7 @@ export default function App() {
   const { activeView, setView, selectedAgentId, selectAgent, closeDetail, showDetailPanel, soundEnabled, toggleSound, filterStatus, filterModel, filterProject, searchQuery, wsAgents, setWsAgents, wsConnected, setWsConnected } = useStore()
 
   const [showSpawn, setShowSpawn] = useState(false)
+  const [showQuickLaunch, setShowQuickLaunch] = useState(false)
   const [liveConfig, setLiveConfig] = useState(null)
   const prevStatuses = useRef({})
 
@@ -134,7 +136,11 @@ export default function App() {
               {wsConnected ? <Wifi size={11} /> : <WifiOff size={11} />}<span className="hidden sm:inline">{wsConnected ? 'LIVE' : 'POLL'}</span>
             </div>
 
-            <button onClick={() => setShowSpawn(!showSpawn)} className="btn-neon px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5">
+            <button onClick={() => { setShowQuickLaunch(!showQuickLaunch); setShowSpawn(false) }} className="btn-neon-blue px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5">
+              <PlayCircle size={13} /><span className="hidden sm:inline">Quick Launch</span>
+            </button>
+
+            <button onClick={() => { setShowSpawn(!showSpawn); setShowQuickLaunch(false) }} className="btn-neon px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5">
               <Rocket size={13} /><span className="hidden sm:inline">Spawn</span>
             </button>
           </div>
@@ -142,6 +148,7 @@ export default function App() {
       </header>
 
       <main className="flex-1 flex flex-col p-4 gap-4 max-w-7xl mx-auto w-full">
+        {showQuickLaunch && <QuickLaunch onClose={() => setShowQuickLaunch(false)} />}
         {showSpawn && <SpawnPanel onClose={() => setShowSpawn(false)} config={liveConfig || configData?.config} onConfigChange={(cfg) => { setLiveConfig(cfg); refetchConfig() }} />}
 
         {activeView === 'dashboard' && (
